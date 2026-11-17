@@ -9,7 +9,11 @@ export async function entrar(_: { error?: string } | undefined, form: FormData) 
     email: String(form.get("email") ?? ""),
     password: String(form.get("password") ?? ""),
   });
-  if (error) return { error: "Email o contraseña incorrectos." };
+  if (error) {
+    // Si había otra sesión abierta en este navegador, se cierra: quien está en el login quiere entrar con otra credencial.
+    await sb.auth.signOut();
+    return { error: "Email o contraseña incorrectos." };
+  }
   redirect("/");
 }
 

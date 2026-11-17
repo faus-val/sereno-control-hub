@@ -34,3 +34,5 @@ Bitácora fechada. Lo más reciente arriba.
 - Incidencia: el primer despliegue salió sin variables (error 500); se añadieron y se volvió a desplegar.
 - Añadida recuperación de contraseña por email (`/recuperar`, `/auth/callback`, `/nueva-contrasena`).
 - Supabase Auth: *Site URL* y *Redirect URL* apuntando a Vercel.
+- Lista de mejoras abierta en GitHub Issues (https://github.com/faus-val/sereno-control-hub/issues), con etiquetas de tipo y prioridad.
+- #1 Login: si se falla la contraseña se cierra cualquier sesión abierta en ese navegador (evita entrar al panel desde una pestaña de login antigua).

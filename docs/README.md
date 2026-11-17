@@ -9,6 +9,8 @@ Documentación viva del Control Hub de Sereno Tech. Se actualiza con cada cambio
 | [nextjs.md](nextjs.md) | Aplicación web: estructura, variables de entorno, despliegue en Vercel |
 | [registro-cambios.md](registro-cambios.md) | Bitácora fechada de todo lo que se hace |
 
+Lista de mejoras y fallos: https://github.com/faus-val/sereno-control-hub/issues
+
 Diagrama de arquitectura en Miro: https://miro.com/app/board/uXjVENjsqYw=/
 
 ## Reglas para mantener esto al día
