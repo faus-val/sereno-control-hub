@@ -1,10 +1,21 @@
 "use client";
 
-import { useActionState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useActionState } from "react";
 import { entrar } from "./actions";
 
 export default function Login() {
+  return (
+    <Suspense>
+      <Formulario />
+    </Suspense>
+  );
+}
+
+function Formulario() {
   const [estado, accion, enviando] = useActionState(entrar, undefined);
+  const enlaceCaducado = useSearchParams().get("error") === "enlace";
 
   return (
     <main className="min-h-dvh grid place-items-center px-4">
@@ -29,12 +40,19 @@ export default function Login() {
             className="w-full rounded-lg border border-borde bg-fondo px-3 py-2 outline-none focus:border-marca" />
         </label>
 
+        {enlaceCaducado && !estado?.error && (
+          <p className="text-sm text-incidencia">El enlace ha caducado o ya se usó. Pide otro.</p>
+        )}
         {estado?.error && <p className="text-sm text-incidencia">{estado.error}</p>}
 
         <button disabled={enviando}
           className="w-full rounded-lg bg-marca text-white dark:text-[#0d1512] font-medium py-2.5 disabled:opacity-60">
           {enviando ? "Entrando…" : "Entrar"}
         </button>
+
+        <Link href="/recuperar" className="block text-center text-sm text-suave hover:underline">
+          ¿Has olvidado la contraseña?
+        </Link>
       </form>
     </main>
   );
