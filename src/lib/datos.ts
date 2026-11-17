@@ -11,7 +11,7 @@ export type Apartamento = {
 };
 export type Dispositivo = {
   id: string; apartamento_id: string; entity_id: string; tipo_funcional: string; nombre_visible: string | null;
-  unidad: string | null; habitacion: string | null; activo: boolean;
+  unidad: string | null; habitacion: string | null; activo: boolean; equipo: string | null;
   estado: { valor: string | null; visto_en: string | null } | null;
 };
 export type Incidencia = {
@@ -42,7 +42,7 @@ export async function cargarPanel() {
   const [inst, aptos, disp, inc, res, user] = await Promise.all([
     sb.from("instalaciones").select("id,nombre,tipo,lat,lon,ciudad,provincia,direccion,modo,cliente_id").eq("activa", true).order("nombre"),
     sb.from("apartamentos").select("id,instalacion_id,nombre,planta,posicion,pms,pms_id,superficie_m2").order("nombre"),
-    sb.from("dispositivos").select("id,apartamento_id,entity_id,tipo_funcional,nombre_visible,unidad,habitacion,activo,estado:estados(valor,visto_en)").eq("activo", true),
+    sb.from("dispositivos").select("id,apartamento_id,entity_id,tipo_funcional,nombre_visible,unidad,habitacion,activo,equipo,estado:estados(valor,visto_en)").eq("activo", true),
     sb.from("incidencias").select("*").in("estado", ["abierta", "en_curso"]).order("abierta_en", { ascending: false }),
     sb.from("reservas").select("id,apartamento_id,estado,entrada,salida,huesped_nombre,huespedes,canal")
       .in("estado", ["confirmada", "pendiente"]).gte("salida", ahora).order("entrada"),

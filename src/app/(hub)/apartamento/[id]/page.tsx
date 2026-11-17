@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { cargarPanel } from "@/lib/datos";
 import { EtiquetaEstado } from "@/components/Estado";
 import { ListaIncidencias } from "@/components/ListaIncidencias";
-import { TIPO_TEXTO, fechaDia, fechaHora, hace, valorLegible } from "@/lib/formato";
+import { ahoraMs, fechaDia, fechaHora, hace } from "@/lib/formato";
+import { agruparEquipos, llegadasSinCerradura } from "@/lib/equipos";
+import { TablaEquipos } from "@/components/TablaEquipos";
 
 export const dynamic = "force-dynamic";
-
-const ORDEN = ["cerradura", "puerta", "ventana", "presencia", "clima", "temperatura", "humedad", "ruido", "consumo", "bateria", "conectividad", "wifi", "bajada", "subida", "latencia", "cortes"];
 
 export default async function Apartamento({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -17,8 +17,8 @@ export default async function Apartamento({ params }: { params: Promise<{ id: st
   if (!inst || !apto) notFound();
 
   const proximas = reservas.filter((r) => r.apartamento_id === apto.id).slice(0, 5);
-  const grupos = ORDEN.map((t) => ({ tipo: t, ds: apto.dispositivos.filter((d) => d.tipo_funcional === t) }))
-    .filter((g) => g.ds.length);
+  const equipos = agruparEquipos(apto.dispositivos, apto.incidencias);
+  const sinCerradura = llegadasSinCerradura(equipos, proximas, ahoraMs());
   const nombres = { inst: { [inst.id]: inst.nombre }, apto: { [apto.id]: apto.nombre } };
 
   return (
@@ -39,34 +39,9 @@ export default async function Apartamento({ params }: { params: Promise<{ id: st
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-4">
-        <section className="lg:col-span-2 bg-panel border border-borde rounded-xl">
-          <h2 className="font-semibold px-4 pt-4 pb-2">Dispositivos</h2>
-          <ul className="divide-y divide-borde">
-            {grupos.flatMap((g) => g.ds.map((d) => {
-              const caido = d.estado?.valor === "unavailable";
-              return (
-                <li key={d.id} className="px-4 py-2.5 flex items-center gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="font-medium truncate">{d.nombre_visible ?? d.entity_id}</div>
-                    <div className="text-xs text-suave truncate">
-                      {TIPO_TEXTO[d.tipo_funcional] ?? d.tipo_funcional}
-                      {d.habitacion ? ` · ${d.habitacion}` : ""}
-                      <span className="font-mono"> · {d.entity_id}</span>
-                    </div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className={`tabular-nums ${caido ? "text-atencion font-medium" : ""}`}>
-                      {valorLegible(d.tipo_funcional, d.estado?.valor ?? null, d.unidad)}
-                    </div>
-                    <div className="text-xs text-suave">{hace(d.estado?.visto_en ?? null)}</div>
-                  </div>
-                </li>
-              );
-            }))}
-          </ul>
-        </section>
+      <TablaEquipos equipos={equipos} sinCerradura={sinCerradura} nombreApto={apto.nombre} />
 
+      <div className="grid lg:grid-cols-2 gap-4">
         <section className="bg-panel border border-borde rounded-xl p-4">
           <h2 className="font-semibold mb-2">Reservas</h2>
           {!apto.pms ? (
@@ -94,12 +69,12 @@ export default async function Apartamento({ params }: { params: Promise<{ id: st
             <p className="text-sm text-suave">Sin reservas próximas.</p>
           )}
         </section>
-      </div>
 
-      <section className="bg-panel border border-borde rounded-xl px-4 pb-1">
-        <h2 className="font-semibold pt-4">Incidencias abiertas</h2>
-        <ListaIncidencias incidencias={apto.incidencias} nombres={nombres} />
-      </section>
+        <section className="bg-panel border border-borde rounded-xl px-4 pb-1">
+          <h2 className="font-semibold pt-4">Incidencias abiertas</h2>
+          <ListaIncidencias incidencias={apto.incidencias} nombres={nombres} />
+        </section>
+      </div>
 
       <p className="text-xs text-suave">Actualizado {fechaHora(new Date().toISOString())}</p>
     </div>

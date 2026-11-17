@@ -79,3 +79,5 @@ export function estadoDe(opts: { abiertasAlerta: number; abiertas: number; ultim
 }
 
 export const haceDias = (dias: number) => new Date(Date.now() - dias * 86400_000).toISOString();
+
+export const ahoraMs = () => Date.now();
