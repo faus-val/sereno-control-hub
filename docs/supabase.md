@@ -13,7 +13,7 @@
 | `miembros` | Usuario + cliente + rol | Roles: `admin`, `gestor`, `operador`, `limpieza`, `lectura` |
 | `instalaciones` | Edificio, local, hostal, casa de huéspedes, piso, casa, autocaravana | `ciudad`, `provincia`, `codigo_postal`, `plantas`, `lat/lon` para el mapa. `nodo_tailscale`, `ha_url`. `modo`: `servicio` o `solo_ha` |
 | `apartamentos` | Unidades dentro de una instalación | `pms` + `pms_id` (antes `lodgify_id`). `planta`, `posicion` para el plano |
-| `dispositivos` | Entidades de Home Assistant | `entity_id`, `tipo_funcional` (cerradura, clima, temperatura, humedad, ruido, ventana, puerta, consumo, wifi, presencia, bateria, conectividad...) |
+| `dispositivos` | Entidades de Home Assistant | `equipo`: aparato físico al que pertenece (agrupa filas en el panel; nulo = la entidad es su propio aparato). `entity_id`, `tipo_funcional` (cerradura, clima, temperatura, humedad, ruido, ventana, puerta, consumo, wifi, presencia, bateria, conectividad...) |
 | `estados` | Último valor de cada dispositivo | Lo escribe n8n |
 | `mediciones` | Histórico numérico | ~225.000 filas a 17/11/2026 |
 | `eventos` | Cambios de estado | |
@@ -117,5 +117,6 @@ Se configuran en *Project Settings → Edge Functions → Secrets*. Nunca en el 
 | 20261117161216 | `st_07_murallas_pms_y_presencia` | ID Lodgify de Murallas; ocupación por presencia sin PMS |
 | 20261117161426 | `st_08_salida_11_y_casa_solo_ha` | Salida 11:00; modo `solo_ha` |
 | 20261117161440 | `st_09_evaluar_reglas_sin_casa` | El motor ignora instalaciones `solo_ha` |
+| 20261117 | `st_10_equipos` | Columna `dispositivos.equipo` y agrupación inicial (Nuki, sensores, termo, internet, estudios) |
 
 Las migraciones anteriores (la demo de Lovable) no están registradas. Para traer el esquema completo al repositorio: `supabase link --project-ref tdxjmkkrfvdkpwcupctz` y `supabase db pull`.

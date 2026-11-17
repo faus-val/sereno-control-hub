@@ -83,7 +83,9 @@ export function TablaEquipos({ equipos, sinCerradura, nombreApto }: {
   const atencion = equipos.filter((e) => e.incidencias.length > 0).length;
   const sinConexion = equipos.filter((e) => !e.enLinea).length;
   const bateriaBaja = equipos.filter((e) => e.bateria?.critica).length;
-  const sinEstancia = equipos.filter((e) => !e.estancia).length;
+  // En un estudio sin estancias definidas no tiene sentido avisar
+  const usaEstancias = equipos.some((e) => e.estancia);
+  const sinEstancia = usaEstancias ? equipos.filter((e) => !e.estancia).length : 0;
 
   return (
     <section className="bg-panel border border-borde rounded-2xl p-4 sm:p-5 space-y-4">
@@ -186,8 +188,10 @@ export function TablaEquipos({ equipos, sinCerradura, nombreApto }: {
                   <td className="px-3 py-3 whitespace-nowrap">
                     {e.estancia ? (
                       <span className="inline-flex items-center gap-1.5"><Home className="size-3.5 text-suave" />{e.estancia}</span>
-                    ) : (
+                    ) : usaEstancias ? (
                       <span className="inline-flex items-center gap-1.5 text-atencion text-xs"><AlertTriangle className="size-3.5" />Asignar estancia</span>
+                    ) : (
+                      <span className="text-suave">—</span>
                     )}
                   </td>
                 </tr>

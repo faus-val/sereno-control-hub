@@ -35,4 +35,5 @@ Bitácora fechada. Lo más reciente arriba.
 - Añadida recuperación de contraseña por email (`/recuperar`, `/auth/callback`, `/nueva-contrasena`).
 - Supabase Auth: *Site URL* y *Redirect URL* apuntando a Vercel.
 - Lista de mejoras abierta en GitHub Issues (https://github.com/faus-val/sereno-control-hub/issues), con etiquetas de tipo y prioridad.
+- Vista de apartamento rediseñada como tabla de equipos (estilo del pantallazo de referencia). Migración `st_10_equipos`. En equipos sin conexión, *Última señal* = último valor real antes de caerse.
 - #1 Login: si se falla la contraseña se cierra cualquier sesión abierta en ese navegador (evita entrar al panel desde una pestaña de login antigua).

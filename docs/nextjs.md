@@ -17,7 +17,7 @@ Panel web de Sereno Tech. Sustituye al dashboard de Lovable.
 | `/nueva-contrasena` | Crear contraseña nueva (mínimo 10 caracteres) |
 | `/` | KPIs, mapa de instalaciones, próximas llegadas, tabla de instalaciones, incidencias abiertas |
 | `/instalacion/[id]` | Apartamentos por planta con estado, ocupación, dispositivos e incidencias |
-| `/apartamento/[id]` | Todos los dispositivos con su valor actual, reservas e incidencias |
+| `/apartamento/[id]` | Tabla de **equipos** (una línea por aparato físico): estado, última señal, batería, lecturas/control y estancia. Arriba, contadores (atención, sin conexión, batería baja, sin estancia) y aviso de llegadas en 72 h con la cerradura caída. Debajo, reservas e incidencias |
 | `/incidencias` | Abiertas (con acciones *Me encargo*, *Resuelta*, *Descartar*) y cerradas de los últimos 7 días |
 
 ### Estado de una instalación o apartamento
