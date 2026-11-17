@@ -68,7 +68,7 @@ function lectura(d: Dispositivo): Lectura | null {
   }
 }
 
-export function agruparEquipos(dispositivos: Dispositivo[], incidencias: Incidencia[]): Equipo[] {
+export function agruparEquipos(dispositivos: Dispositivo[], incidencias: Incidencia[], ultimoBueno: Record<string, string> = {}): Equipo[] {
   const grupos = new Map<string, Dispositivo[]>();
   for (const d of dispositivos) {
     const k = d.equipo ?? d.entity_id;
@@ -90,7 +90,10 @@ export function agruparEquipos(dispositivos: Dispositivo[], incidencias: Inciden
       entidades: ents,
       enLinea: conDatos.length > 0,
       parcial: conDatos.length > 0 && conDatos.length < ents.length,
-      ultimo: ents.reduce<string | null>((m, e) => (e.estado?.visto_en && (!m || e.estado.visto_en > m) ? e.estado.visto_en : m), null),
+      // En línea: último dato recibido. Sin conexión: último valor real antes de caerse.
+      ultimo: conDatos.length
+        ? conDatos.reduce<string | null>((m, e) => (e.estado?.visto_en && (!m || e.estado.visto_en > m) ? e.estado.visto_en : m), null)
+        : ents.reduce<string | null>((m, e) => (ultimoBueno[e.id] && (!m || ultimoBueno[e.id] > m) ? ultimoBueno[e.id] : m), null),
       bateria: bat && !caido(bat)
         ? { pct, critica: pct != null ? pct < 15 : bat.estado?.valor === "on" }
         : null,

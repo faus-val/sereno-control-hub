@@ -129,7 +129,7 @@ export function TablaEquipos({ equipos, sinCerradura, nombreApto }: {
             <tr className="text-left text-suave border-b border-borde">
               <th className="font-medium px-4 py-2.5">Equipo</th>
               <th className="font-medium px-3 py-2.5">Estado</th>
-              <th className="font-medium px-3 py-2.5">Última señal</th>
+              <th className="font-medium px-3 py-2.5" title="Si está sin conexión: último valor real recibido">Última señal</th>
               <th className="font-medium px-3 py-2.5">Batería</th>
               <th className="font-medium px-3 py-2.5">Lectura / control</th>
               <th className="font-medium px-3 py-2.5">Estancia</th>
@@ -174,7 +174,9 @@ export function TablaEquipos({ equipos, sinCerradura, nombreApto }: {
                       </span>
                     )}
                   </td>
-                  <td className="px-3 py-3 text-suave whitespace-nowrap">{hace(e.ultimo)}</td>
+                  <td className="px-3 py-3 text-suave whitespace-nowrap" title={e.ultimo ? fechaHora(e.ultimo) : undefined}>
+                    {e.enLinea ? hace(e.ultimo) : e.ultimo ? <span className="text-atencion">{hace(e.ultimo)}</span> : "Sin registro"}
+                  </td>
                   <td className="px-3 py-3 whitespace-nowrap"><Bateria b={e.bateria} /></td>
                   <td className="px-3 py-3">
                     <div className="flex flex-wrap gap-1.5">

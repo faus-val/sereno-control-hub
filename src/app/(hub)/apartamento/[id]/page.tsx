@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cargarPanel } from "@/lib/datos";
+import { crearClienteServidor } from "@/lib/supabase/server";
 import { EtiquetaEstado } from "@/components/Estado";
 import { ListaIncidencias } from "@/components/ListaIncidencias";
 import { ahoraMs, fechaDia, fechaHora, hace } from "@/lib/formato";
@@ -17,7 +18,17 @@ export default async function Apartamento({ params }: { params: Promise<{ id: st
   if (!inst || !apto) notFound();
 
   const proximas = reservas.filter((r) => r.apartamento_id === apto.id).slice(0, 5);
-  const equipos = agruparEquipos(apto.dispositivos, apto.incidencias);
+  // Para los dispositivos caídos: cuándo dieron su último valor real
+  const caidos = apto.dispositivos.filter((d) => !d.estado?.valor || d.estado.valor === "unavailable" || d.estado.valor === "unknown").map((d) => d.id);
+  const ultimoBueno: Record<string, string> = {};
+  if (caidos.length) {
+    const sb = await crearClienteServidor();
+    const { data } = await sb.from("eventos").select("dispositivo_id,ocurrido_en")
+      .in("dispositivo_id", caidos).not("valor_nuevo", "in", "(unavailable,unknown)")
+      .order("ocurrido_en", { ascending: false }).limit(500);
+    data?.forEach((e) => { if (e.dispositivo_id && !ultimoBueno[e.dispositivo_id]) ultimoBueno[e.dispositivo_id] = e.ocurrido_en; });
+  }
+  const equipos = agruparEquipos(apto.dispositivos, apto.incidencias, ultimoBueno);
   const sinCerradura = llegadasSinCerradura(equipos, proximas, ahoraMs());
   const nombres = { inst: { [inst.id]: inst.nombre }, apto: { [apto.id]: apto.nombre } };
 
