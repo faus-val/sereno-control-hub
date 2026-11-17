@@ -29,4 +29,6 @@ Bitácora fechada. Lo más reciente arriba.
 ### Control Hub (Next.js)
 - Proyecto Next.js 16 con login, vista global con mapa, instalación, apartamento e incidencias.
 - Documentación inicial en `docs/`.
-- Pendiente: crear el repositorio en GitHub y desplegar en Vercel.
+- Código subido a `faus-val/sereno-control-hub` (privado).
+- Desplegado en Vercel (equipo SERENO TECH): https://sereno-control-hub.vercel.app. Variables `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` en Production.
+- Incidencia: el primer despliegue salió sin variables (error 500); se añadieron y se volvió a desplegar.

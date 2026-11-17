@@ -3,7 +3,8 @@
 Panel web de Sereno Tech. Sustituye al dashboard de Lovable.
 
 - **Repositorio:** `faus-val/sereno-control-hub` (privado)
-- **Hosting:** Vercel, despliegue automático desde la rama `main`
+- **Hosting:** Vercel, equipo *SERENO TECH* (plan Hobby), despliegue automático desde la rama `main`
+- **URL:** https://sereno-control-hub.vercel.app
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase (`@supabase/ssr`) · Leaflet + OpenStreetMap
 
 ## Pantallas
