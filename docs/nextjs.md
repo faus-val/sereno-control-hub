@@ -12,6 +12,9 @@ Panel web de Sereno Tech. Sustituye al dashboard de Lovable.
 | Ruta | Qué muestra |
 |---|---|
 | `/login` | Acceso con email y contraseña (Supabase Auth) |
+| `/recuperar` | Pide un enlace por email para crear contraseña nueva |
+| `/auth/callback` | Destino de los enlaces de email de Supabase (canjea el código por sesión) |
+| `/nueva-contrasena` | Crear contraseña nueva (mínimo 10 caracteres) |
 | `/` | KPIs, mapa de instalaciones, próximas llegadas, tabla de instalaciones, incidencias abiertas |
 | `/instalacion/[id]` | Apartamentos por planta con estado, ocupación, dispositivos e incidencias |
 | `/apartamento/[id]` | Todos los dispositivos con su valor actual, reservas e incidencias |
@@ -71,7 +74,7 @@ npm run lint && npm run build
 2. *Add New → Project* → importar `faus-val/sereno-control-hub`.
 3. Añadir las dos variables de entorno de arriba.
 4. *Deploy*. A partir de ahí, cada push a `main` se publica solo.
-5. En Supabase → *Authentication → URL Configuration*, poner la URL de Vercel como *Site URL*.
+5. En Supabase → *Authentication → URL Configuration*: *Site URL* = `https://sereno-control-hub.vercel.app` y *Redirect URL* = `https://sereno-control-hub.vercel.app/**` (hecho el 17/11/2026). Para probar en local, añadir también `http://localhost:3000/**`.
 
 ## Decisiones
 

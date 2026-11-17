@@ -37,6 +37,8 @@ Todas las tablas tienen RLS activado. Funciones de apoyo (security definer, solo
 | `limpieza` | Reservas y **solo las incidencias asignadas a él** | Atender sus incidencias |
 | `lectura` | Todo su cliente | Nada |
 
+Auth: *Site URL* `https://sereno-control-hub.vercel.app`, *Redirect URL* `https://sereno-control-hub.vercel.app/**`.
+
 Pendiente: activar en Auth la protección contra contraseñas filtradas antes de dar acceso a terceros.
 
 ## Motor de reglas

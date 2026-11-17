@@ -32,3 +32,5 @@ Bitácora fechada. Lo más reciente arriba.
 - Código subido a `faus-val/sereno-control-hub` (privado).
 - Desplegado en Vercel (equipo SERENO TECH): https://sereno-control-hub.vercel.app. Variables `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` en Production.
 - Incidencia: el primer despliegue salió sin variables (error 500); se añadieron y se volvió a desplegar.
+- Añadida recuperación de contraseña por email (`/recuperar`, `/auth/callback`, `/nueva-contrasena`).
+- Supabase Auth: *Site URL* y *Redirect URL* apuntando a Vercel.
