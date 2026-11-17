@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --fondo: #f6f5f1;
+  --panel: #ffffff;
+  --borde: #e4e1d8;
+  --texto: #1d2420;
+  --suave: #69736d;
+  --marca: #1f5f4a;
+  --marca-suave: #e3efe9;
+  --ok: #2e8b57;
+  --atencion: #c98a0b;
+  --incidencia: #c2412d;
+  --sin-datos: #8b9490;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --fondo: #121614;
+    --panel: #1a1f1c;
+    --borde: #2b322e;
+    --texto: #e8ece9;
+    --suave: #97a19b;
+    --marca: #6cc4a1;
+    --marca-suave: #1d2d26;
+    --ok: #4fbf84;
+    --atencion: #e2a93a;
+    --incidencia: #ec6b55;
+    --sin-datos: #7d8681;
   }
 }
 
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-panel: var(--panel);
+  --color-borde: var(--borde);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-marca: var(--marca);
+  --color-marca-suave: var(--marca-suave);
+  --color-ok: var(--ok);
+  --color-atencion: var(--atencion);
+  --color-incidencia: var(--incidencia);
+  --color-sin-datos: var(--sin-datos);
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: var(--marca-suave);
 }
