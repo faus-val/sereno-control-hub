@@ -7,6 +7,7 @@ import { ListaIncidencias } from "@/components/ListaIncidencias";
 import { ahoraMs, fechaDia, fechaHora, hace } from "@/lib/formato";
 import { agruparEquipos, llegadasSinCerradura } from "@/lib/equipos";
 import { TablaEquipos } from "@/components/TablaEquipos";
+import { PruebaBienvenida } from "@/components/PruebaBienvenida";
 
 export const dynamic = "force-dynamic";
 
@@ -86,6 +87,9 @@ export default async function Apartamento({ params }: { params: Promise<{ id: st
           <ListaIncidencias incidencias={apto.incidencias} nombres={nombres} />
         </section>
       </div>
+
+      <PruebaBienvenida apartamentoId={apto.id}
+        tieneTele={apto.dispositivos.some((d) => d.entity_id.startsWith("media_player."))} />
 
       <p className="text-xs text-suave">Actualizado {fechaHora(new Date().toISOString())}</p>
     </div>

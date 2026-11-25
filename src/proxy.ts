@@ -39,5 +39,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|svg|ico)$).*)"],
+  // /audio queda fuera: Home Assistant descarga de ahí la bienvenida sin sesión.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|audio/|.*\\.(?:png|jpg|svg|ico)$).*)"],
 };

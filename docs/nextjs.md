@@ -18,6 +18,7 @@ Panel web de Sereno Tech. Sustituye al dashboard de Lovable.
 | `/` | KPIs, mapa de instalaciones, próximas llegadas, tabla de instalaciones, incidencias abiertas |
 | `/instalacion/[id]` | Apartamentos por planta con estado, ocupación, dispositivos e incidencias |
 | `/apartamento/[id]` | Tabla de **equipos** (una línea por aparato físico): estado, última señal, batería, lecturas/control y estancia. Arriba, contadores (atención, sin conexión, batería baja, sin estancia) y aviso de llegadas en 72 h con la cerradura caída. Debajo, reservas e incidencias |
+| `/apartamento/[id]` (abajo) | **Bienvenida en la tele**: escuchar las mezclas y *Probar en la tele* (vía n8n → Home Assistant). Ver [bienvenida-tv.md](bienvenida-tv.md) |
 | `/incidencias` | Abiertas (con acciones *Me encargo*, *Resuelta*, *Descartar*) y cerradas de los últimos 7 días |
 
 ### Estado de una instalación o apartamento
@@ -56,6 +57,8 @@ docs/                          Esta documentación
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://tdxjmkkrfvdkpwcupctz.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave publicable (`sb_publishable_...`) de *Project Settings → API Keys* |
+| `N8N_WEBHOOK_BIENVENIDA` | Webhook de n8n para la bienvenida en la tele (solo servidor) |
+| `N8N_WEBHOOK_TOKEN` | Opcional, token que comprueba ese webhook |
 
 En local van en `.env.local` (no se sube a git; plantilla en `.env.example`). En Vercel, en *Settings → Environment Variables*.
 
