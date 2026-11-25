@@ -2,6 +2,14 @@
 
 Bitácora fechada. Lo más reciente arriba.
 
+## 25/11/2026
+
+### Bienvenida en la tele
+- Voz de marca elegida: **Aitana** (ElevenLabs v4, español peninsular). Dos mezclas con música de ElevenLabs Music en `public/audio/`.
+- Ficha de apartamento: sección *Bienvenida en la tele* con reproductor y botón *Probar en la tele* (server action → webhook n8n → Home Assistant). Detalle en [bienvenida-tv.md](bienvenida-tv.md).
+- `/audio/*` fuera del control de sesión para que Home Assistant pueda descargar el MP3.
+- Pendiente: flujo n8n, script `bienvenida_tv` en HA y variable `N8N_WEBHOOK_BIENVENIDA` en Vercel. El TV Box aparece *no disponible* en HA.
+
 ## 17/11/2026
 
 ### Organización
